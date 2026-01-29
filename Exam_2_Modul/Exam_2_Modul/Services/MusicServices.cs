@@ -11,7 +11,7 @@ public class MusicServices : IMusicServices
     {
         Musics = new List<Music>();
     }
-
+    
     public Guid AddMusic(CreateMusicDto createMusicDto)
     {
         var music = new Music();
@@ -131,6 +131,10 @@ public class MusicServices : IMusicServices
             if (Musics[i].QuentityLikes > music.QuentityLikes)
             {
                 music.QuentityLikes = Musics[i].QuentityLikes;
+                music.MB = Musics[i].MB;
+                music.AuthorName = Musics[i].AuthorName;
+                music.Name = Musics[i].Name;
+                music.Discription = Musics[i].Discription;
             }
         }
         return music;
@@ -205,16 +209,17 @@ public class MusicServices : IMusicServices
 
     public double GetTotalMusicSizeByAuthor(string authorName)
     {
-        var totalMB = 0;
+        double totalMB = 0;
 
         foreach (var music in Musics)
         {
             if (music.AuthorName == authorName)
             {
-                totalMB += (int)music.MB;
+                totalMB += music.MB;
             }
         }
         return totalMB;
     }
+
 
 }
